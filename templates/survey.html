@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Анкета</title>
+    <link rel= 'stylesheet' href="/static/style.css" />
+</head>
+<div class="container">
+
+<body  >
+    <h2>Добро пожаловать, {{ username }}!</h2>
+    <p>Пожалуйста, ответьте на вопросы:</p>
+    <form method="POST">
+        <div class="gradient-text">
+        <label>Ваше любимое время суток:</label></br>
+        <label><input  type="radio" name="favorite_time" value="Утро" required /> Утро</label><br />
+        <label><input  type="radio" name="favorite_time" value="День"  /> День</label><br />
+        <label><input  type="radio" name="favorite_time" value="Вечер"  /> Вечер</label><br />
+        <label><input  type="radio" name="favorite_time" value="Ночь"  /> Ночь</label><br />
+
+        <label>What is your favorite animal?</label><br />
+        <label><input type=radio name="favorite_animal" value="cat" required /> cat </label><br />
+        <label><input type=radio name="favorite_animal" value="dog"  /> dog </label><br />
+        <label><input type=radio name="favorite_animal" value="mouse" /> mouse </label><br />
+        <label><input type=radio name="favorite_animal" value="rabbit" /> rabbit </label><br />
+
+        <label>Ваш любимый жанр в кино:</label><br />
+        <label><input type="checkbox" name="favorite_genres" value="Комедия" /> Комедия</label><br />
+        <label><input type="checkbox" name="favorite_genres" value="Драма" /> Драма</label><br />
+        <label><input type="checkbox" name="favorite_genres" value="Фэнтези" /> Фэнтези</label><br />
+        <label><input type="checkbox" name="favorite_genres" value="Боевик" /> Боевик</label><br />
+
+         <label>Ваш любимый актер:</label><br />
+         </div>
+         <label><input type="text" name="favorite_actor" placeholder="Введите имя актера" required class = 'free-answer'/></label> <br />
+         <div class="gradient-text">
+        <label>Ваша любимая игра:</label><br />
+        </div>
+        <label ><input type="text" name="favorite_game" placeholder="Напиши любимую игру" required class = 'free-answer' /></label> <br />
+
+        <button type="submit">Отправить</button>
+
+
+
+    </form>
+</body>
+</div>
+
+</html>

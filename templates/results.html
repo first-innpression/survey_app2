@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Результаты</title>
+    <link rel= 'stylesheet' href="/static/style.css" />
+
+</head>
+<body>
+    <h1> Результаты опросов</h1>
+    <table>
+    <tr>
+        <th>ID</th>
+        <th>Ник</th>
+        <th>Время</th>
+        <th>Жанры</th>
+        <th>Актер</th>
+        <th>Игра</th>
+    </tr>
+
+    {% for row in data %}
+    <tr>
+        <td>{{ row.id }}</td>
+        <td>{{ row.username }}</td>
+        <td>{{ row.favorite_time }}</td>
+        <td>{{ row.favorite_genres }}</td>
+        <td>{{ row.favorite_actor }}</td>
+        <td>{{ row.favorite_game }}</td>
+    </tr>
+    {% endfor %}
+</table>
+</body>
+</html>

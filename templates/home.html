@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <title>Главная</title>
+    <link rel= 'stylesheet' href="/static/style.css" />
+</head>
+<body>
+    <h1>Пожалуйста, введите ваш Email!</h1>
+
+    <form action="/submit" method="post">
+        <input type="text" name="username" />
+        <button type="submit">Далее</button>
+    </form>
+    {% if error %}
+    <p >{{error}}</p>
+    {% endif %}
+</body>
+</html>

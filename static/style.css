@@ -1,0 +1,79 @@
+body {
+        color: coral;
+        background-color:#e2f3fa;
+        font-size: 18px;
+        font-weight: bold;
+}
+
+button {  /*СТИЛЬ ДЛЯ ВСЕХ КНОПОК*/
+    padding: 10px;
+    background-color: #ff8400;
+    color: white;
+    border: none;
+
+}
+button:hover { /*СТИЛЬ ДЛЯ КНОПКИ, КОГДА НА НЕЕ НАПРАВЛЕН УКАЗАТЕЛЬ МЫШИ*/
+    background-color: #d4832b;
+}
+.container {
+    max-width: 600px; {#размер рамки#}
+    box-shadow: 0 0 10px rgba(0,0,0,0.5); {#тень от рамки#}
+    margin: 50px auto; {#отступ сверху#}
+
+    background: linear-gradient(#abddf2, #abf2e9, #abbff2); {#вместо предыдущей строчки можно сделать градиент#}
+    padding: 50px; {#отступ от начала рамки до текста слева#}
+    border-radius: 20px; {#радиус обводки#}
+
+}
+
+.images {
+    display: flex;
+    gap: 50px;
+    align-items: start;
+
+}
+
+.gradient-text {
+    background: linear-gradient(
+        to bottom,
+        #ff6ba9 0%,
+        #ff6b6b 50%,
+        #ffa96b 100%
+    );
+
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    background-clip: text;
+    color: transparent;
+}
+
+.free-answer {
+    color: #d60059;
+    font-weight: bold;
+}
+
+.free-answer::placeholder {
+  font-weight: normal;
+  color: gray;
+  font-size: 12px;
+  opacity: 1;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th, td {
+    border: 1px solid black;
+    padding: 8px;
+}
+
+th {
+            background-color: #eaeaea;
+        }
+
+tr:nth-child(even) {
+            background-color: #049f16;
+        }

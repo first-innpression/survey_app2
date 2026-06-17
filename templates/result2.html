@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>results</title>
+      <link rel='stylesheet' href="/static/Style.css" >
+</head>
+<body>
+    <h1>Result</h1>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>number</th>
+            <th>favorite_animal</th>
+            <th>favorite_games</th>
+            <th>favorite_food</th>
+            <th>favorite_gadget</th>
+            <th>favorite_roblox_game</th>
+            <th>source</th>
+        </tr>
+
+        {% for row in data %}
+        <tr>
+            <td>{{row.id}}</td>
+            <td>{{row.number}}</td>
+            <td>{{ row.favorite_animal }}</td>
+            <td>{{ row.favorite_games }}</td>
+            <td>{{ row.favorite_food }}</td>
+            <td>{{ row.favorite_gadget }}</td>
+            <td>{{ row.favorite_roblox_game }}</td>
+            <td>{{ row.source }}</td>
+
+
+        </tr>
+        {%endfor%}
+</table>
+</body>
+</html>
