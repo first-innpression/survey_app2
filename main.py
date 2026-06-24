@@ -46,7 +46,7 @@ def submit():
     return redirect(url_for('survey', username=username))
 
 @app.route('/survey', methods=['GET', 'POST'])
-@auth.login_required
+
 def survey():
     username = request.args.get('username')
     if request.method == 'POST':
@@ -90,7 +90,7 @@ def results():
     conn.close()
 
     return render_template('results.html', data=data)
-
+init_db()
 if __name__ == '__main__':
-    init_db()
+
     app.run(debug=True, port=5001)
