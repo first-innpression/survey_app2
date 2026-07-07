@@ -39,16 +39,20 @@ def home():
 
 @app.route('/submit', methods=['POST'])
 def submit():
-    username = request.form.get('username')
-    if not username:
-        return render_template('home.html', error="Пожалуйста, введите свой никнейм")
-
-    return redirect(url_for('survey', username=username))
+    number = request.form.get('number')
+    if not number:
+        return render_template('home.html', error="Пожалуйста, введите свой номер")
+    if len(number) < 7:
+        return render_template('home.html', error="Пожалуйста, введите корректный номер")
+    for digit in number:
+        if not digit.isdigit():
+            return render_template('home.html', error="Пожалуйста, введите корректный номер")
+    return redirect(url_for('survey', number=number))
 
 @app.route('/survey', methods=['GET', 'POST'])
 
 def survey():
-    username = request.args.get('username')
+    number = request.args.get('number')
     if request.method == 'POST':
         favorite_time = request.form.get("favorite_time")
         favorite_genres = request.form.getlist("favorite_genres")
@@ -64,7 +68,7 @@ def survey():
             (username, favorite_time, favorite_genres, favorite_actor, favorite_game)
             VALUES (?, ?, ?, ?, ?)
         ''', (
-            username,favorite_time,favorite_genres_str,favorite_actor,favorite_game
+            number,favorite_time,favorite_genres_str,favorite_actor,favorite_game
         ))
 
         conn.commit()
@@ -75,7 +79,7 @@ def survey():
 
 
         return render_template('thankyou.html')
-    return render_template('survey.html', username=username)
+    return render_template('survey.html', username=number)
 
 @app.route('/results')
 @auth.login_required
