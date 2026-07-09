@@ -1,9 +1,13 @@
 from flask import Flask, render_template, request, redirect, url_for
-import sqlite3
+import os
+from flask_sqlalchemy import SQLAlchemy
 from flask_httpauth  import HTTPBasicAuth
 
 app = Flask(__name__)
+app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("DATABASE_URL")
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 auth = HTTPBasicAuth()
+db = SQLAlchemy(app)
 users = {
     "admin": "12345"
 }
@@ -14,23 +18,19 @@ def verify_password(username, password):
         return username
 
 
-def init_db():
-    conn = sqlite3.connect('database.db')
-    cursor = conn.cursor()
+class SurveyResult(db.Model):
+    __tablename__ = "survey_results"
 
-    cursor.execute('''
-        CREATE TABLE IF NOT EXISTS survey_results (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            username TEXT,
-            favorite_time TEXT,
-            favorite_genres TEXT,
-            favorite_actor TEXT,
-            favorite_game TEXT
-        )
-    ''')
+    id = db.Column(db.Integer, primary_key=True)
+    number = db.Column(db.String(100))
+    favorite_time = db.Column(db.String(100))
+    favorite_genres = db.Column(db.Text)
+    favorite_actor = db.Column(db.String(100))
+    favorite_game = db.Column(db.String(100))
 
-    conn.commit()
-    conn.close()
+
+with app.app_context():
+    db.create_all()
 
 @app.route('/')
 def home():
@@ -58,22 +58,18 @@ def survey():
         favorite_genres = request.form.getlist("favorite_genres")
         favorite_actor= request.form.get("favorite_actor")
         favorite_game = request.form.get("favorite_game")
-        favorite_genres_str = ', '.join(favorite_genres)
+        favorite_genres = ', '.join(favorite_genres)
 
-        conn = sqlite3.connect('database.db')
-        cursor = conn.cursor()
+        result = SurveyResult(
+            number=number,
+            favorite_time=favorite_time,
+            favorite_genres=favorite_genres,
+            favorite_actor=favorite_actor,
+            favorite_game=favorite_game
+        )
 
-        cursor.execute('''
-            INSERT INTO survey_results
-            (username, favorite_time, favorite_genres, favorite_actor, favorite_game)
-            VALUES (?, ?, ?, ?, ?)
-        ''', (
-            number,favorite_time,favorite_genres_str,favorite_actor,favorite_game
-        ))
-
-        conn.commit()
-        conn.close()
-
+        db.session.add(result)
+        db.session.commit()
 
 
 
@@ -84,17 +80,10 @@ def survey():
 @app.route('/results')
 @auth.login_required
 def results():
-    conn = sqlite3.connect('database.db')
-    conn.row_factory = sqlite3.Row
+    date = SurveyResult.query.all()
+    return render_template('results.html', data=date)
 
-    cursor = conn.cursor()
-    cursor.execute("SELECT * FROM survey_results")
-    data = cursor.fetchall()
 
-    conn.close()
-
-    return render_template('results.html', data=data)
-init_db()
 if __name__ == '__main__':
 
     app.run(debug=True, port=5001)
