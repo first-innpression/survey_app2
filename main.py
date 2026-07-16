@@ -58,12 +58,12 @@ def survey():
         favorite_genres = request.form.getlist("favorite_genres")
         favorite_actor= request.form.get("favorite_actor")
         favorite_game = request.form.get("favorite_game")
-        favorite_genres = ', '.join(favorite_genres)
+        favorite_genres_str = ', '.join(favorite_genres)
 
         result = SurveyResult(
             number=number,
             favorite_time=favorite_time,
-            favorite_genres=favorite_genres,
+            favorite_genres=favorite_genres_str,
             favorite_actor=favorite_actor,
             favorite_game=favorite_game
         )
